@@ -1,0 +1,190 @@
+/* General */
+body {
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #000;
+  padding: 20px 60px;
+}
+
+.logo {
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+nav a {
+  margin: 0 15px;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+}
+
+nav a.active::after {
+  content: '';
+  display: block;
+  height: 2px;
+  background-color: #f45b69;
+  width: 100%;
+  margin-top: 5px;
+}
+
+/* Home Page Styling */
+body.home {
+  background: url("vegetabl.jpg") no-repeat center center/cover;
+  height: 100vh;
+  color: white;
+  text-align: center;
+}
+
+.hero {
+  margin-top: 180px;
+}
+
+.hero h4 {
+  background-color: rgba(0, 0, 0, 0.4);
+  display: inline-block;
+  padding: 10px 25px;
+  border-radius: 20px;
+  font-size: 20px;
+}
+
+.hero h1 {
+  font-size: 48px;
+  margin: 20px 0;
+}
+
+.hero p {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.hero button {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  padding: 10px 25px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* About Page Styling */
+.about-section {
+  padding: 80px 120px;
+  background-color: white;
+  color: #333;
+}
+
+.about-label {
+  background: #fddde4;
+  display: inline-block;
+  padding: 5px 15px;
+  border-radius: 20px;
+  color: #f45b69;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.about-section h2 {
+  font-size: 36px;
+}
+
+.about-section h2 span {
+  color: #f45b69;
+}
+
+.about-section .intro {
+  font-size: 18px;
+  margin: 20px 0;
+  font-weight: 500;
+  color: #444;
+}
+
+.about-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+  margin-top: 30px;
+}
+
+.about-content .left, .about-content .right {
+  flex: 1;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.about-content ul {
+  padding-left: 20px;
+}
+
+.about-content ul li {
+  margin: 10px 0;
+  color: #444;
+}
+
+.about-content button {
+  background: transparent;
+  border: 2px solid #f45b69;
+  color: #f45b69;
+  padding: 10px 25px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.predict-section {
+  padding: 100px 20px;
+  text-align: center;
+  background-color: #fff;
+  min-height: 100vh;
+}
+
+.predict-section h2 {
+  font-size: 36px;
+  margin-bottom: 40px;
+  color: #333;
+}
+
+.predict-section form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+
+.predict-section label {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.predict-section input[type="file"] {
+  padding: 10px;
+  font-size: 16px;
+  width: 50%;
+  max-width: 600px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.predict-section button {
+  padding: 15px 60px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  font-size: 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.predict-section button:hover {
+  background-color: #218838;
+}
+
