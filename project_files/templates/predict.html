@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Predict – NutriGaze</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <div class="logo">NUTRIGAZE</div>
+    <nav>
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('about') }}">About</a>
+      <a href="{{ url_for('predict') }}" class="active">Predict</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <section class="predict-section">
+    <h2>Upload an Image</h2>
+    <form action="{{ url_for('predict') }}" method="POST" enctype="multipart/form-data">
+      <input type="file" name="pc_image" accept="image/*" required>
+      <button type="submit">Predict</button>
+    </form>
+  </section>
+</body>
+</html>

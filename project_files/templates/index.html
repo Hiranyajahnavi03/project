@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NutriGaze</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+
+
+</head>
+<body class="home">
+  <header>
+    <div class="logo">NUTRIGAZE</div>
+    <nav>
+      <a href="index.html" class="active">Home</a>
+
+      <a href="{{ url_for('about') }}">About</a>
+      <a href="{{ url_for('predict') }}">Predict</a>
+      <a href="#">Contact</a>
+
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h4>Welcome to <strong>NutriGaze</strong></h4>
+    <h1>GREENGUARD INSIGHTS</h1>
+    <p>We are a team of innovative scientists and technologists dedicated to ensuring your produce is always fresh and healthy.</p>
+    <button>GET STARTED</button>
+  </section>
+</body>
+</html>
