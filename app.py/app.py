@@ -1,62 +1,50 @@
-from flask import Flask, render_template, request,url_for
-from tensorflow.keras.preprocessing.image import load_img
-from tensorflow.keras.models import load_model
+from flask import Flask, render_template, request, jsonify, url_for, redirect
+from tensorflow. keras. preprocessing. image import load_img, img_to_array
+from PIL import Image
 import numpy as np
 import os
-import tensorflow as tf 
-
-app = Flask(__name__)
-
-# 1️⃣ Define once at the top:
-CLASS_NAMES = [
-    'Apple__Healthy','Apple__Rotten','Banana__Healthy','Banana__Rotten',
-    'Bellpepper__Healthy','Bellpepper__Rotten','Carrot__Healthy','Carrot__Rotten',
-    'Cucumber__Healthy','Cucumber__Rotten','Grape__Healthy','Grape__Rotten',
-    'Guava__Healthy','Guava__Rotten','Jujube__Healthy','Jujube__Rotten',
-    'Mango__Healthy','Mango__Rotten','Orange__Healthy','Orange__Rotten',
-    'Pomegranate__Healthy','Pomegranate__Rotten','Potato__Healthy','Potato__Rotten',
-    'Strawberry__Healthy','Strawberry__Rotten','Tomato__Healthy','Tomato__Rotten'
-]
-model = tf. keras.models. load_model( 'healthy_vs_rotten_complete.h5')
-UPLOAD_FOLDER = os.path.join('static','uploads')
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-
-
-
+import tensorflow as tf
+app=Flask(__name__ )
+model = tf. keras.models. load_model( 'healthy.h5')
 @app.route('/')
-def home():
-    return render_template('index.html')
+def index():
+    return render_template("index.html")
 
 @app.route('/about')
 def about():
     return render_template("about.html")
 
-@app.route('/predict', methods=['GET','POST'])
+@app.route('/predict', methods=['GET', 'POST'])
 def predict():
     if request.method == 'POST':
         f = request.files.get('pc_image')
-        if not f or f.filename == '':
+        if not f:
             return "No file uploaded", 400
 
-        # save
-        img_path = os.path.join(UPLOAD_FOLDER, f.filename)
+        img_path = "static/uploads/" + f.filename
         f.save(img_path)
+        from tensorflow.keras.applications.vgg16 import preprocess_input
 
-        # preprocess
-        img = load_img(img_path, target_size=(224,224))
-        arr = np.expand_dims(np.array(img), axis=0)
+        img = load_img(img_path, target_size=(224, 224))
+        image_array = img_to_array(img)
+        image_array = image_array / 255.0  # IMPORTANT
+        image_array = np.expand_dims(image_array, axis=0)
+  
 
-        # predict — must be shape (1,28)
-        preds = model.predict(arr)
-        # DEBUG: uncomment to see shape
-        # print("preds:", preds, "shape:", preds.shape)
+        
+        pred = np.argmax(model.predict(image_array), axis=1)
 
-        # pick class
-        class_idx = int(np.argmax(preds[0]))
-        # 2️⃣ Use CLASS_NAMES, not undefined `index`
-        prediction = f"{CLASS_NAMES[class_idx]} ({class_idx})"
 
-        # after saving the file:
+        index= [
+    'Apple__Healthy(0)','Apple__Rotten(1)','Banana__Healthy(2)','Banana__Rotten(3)',
+    'Bellpepper__Healthy(4)','Bellpepper__Rotten(5)','Carrot__Healthy(6)','Carrot__Rotten(7)',
+    'Cucumber__Healthy(8)','Cucumber__Rotten(9)','Grape__Healthy(10)','Grape__Rotten(11)',
+    'Guava__Healthy(12)','Guava__Rotten(13)','Jujube__Healthy(14)','Jujube__Rotten(15)',
+    'Mango__Healthy(16)','Mango__Rotten(17)','Orange__Healthy(18)','Orange__Rotten(19)',
+    'Pomegranate__Healthy(20)','Pomegranate__Rotten(21)','Potato__Healthy(22)','Potato__Rotten(23)',
+    'Strawberry__Healthy(24)','Strawberry__Rotten(25)','Tomato__Healthy(26)','Tomato__Rotten(27)'
+]
+        prediction = index[int(pred)]
         img_filename = f.filename
         img_url = url_for('static', filename=f'uploads/{img_filename}')
         return render_template(
@@ -64,12 +52,11 @@ def predict():
                    predict=prediction,
                    img_url=img_url
                     )
-
-
-    # GET: show upload form
+    
+    # Handle GET request with a simple redirect or a message
     return render_template('predict.html')
 
-   
+if __name__=='__main__':
+    app.run(debug = True, port = 2222)
 
-if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+
